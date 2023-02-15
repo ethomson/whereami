@@ -6,6 +6,7 @@ export const config = {
 
 export type Location = {
   ip: string,
+  computeRegion: string,
   city: string,
   region: string | null,
   country: string,
@@ -16,6 +17,7 @@ export type Location = {
 
 const devLocation: Location = {
   'ip': '127.0.0.1',
+  'computeRegion': 'localhost',
   'city': 'Brescia',
   'region': 'Lombardy',
   'country': 'IT',
@@ -32,6 +34,7 @@ export default function handler(req: NextRequest, res: NextResponse) {
   } else {
     data = {
       ip: req.headers.get('x-real-ip') || '127.0.0.1',
+      computeRegion: process.env.VERCEL_REGION || 'Unknown',
       city: req.headers.get('x-vercel-ip-city') || 'Unknown',
       region: req.headers.get('x-vercel-ip-country-region'),
       country: req.headers.get('x-vercel-ip-country') || '??',
